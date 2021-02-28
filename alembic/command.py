@@ -68,6 +68,7 @@ def init(config, directory, template="generic", package=False):
 
     script = ScriptDirectory(directory)
 
+    config_file = None
     for file_ in os.listdir(template_dir):
         file_path = os.path.join(template_dir, file_)
         if file_ == "alembic.ini.mako":
@@ -90,10 +91,11 @@ def init(config, directory, template="generic", package=False):
             file_ = util.status("Adding %s" % path, open, path, "w")
             file_.close()
 
-    util.msg(
-        "Please edit configuration/connection/logging "
-        "settings in %r before proceeding." % config_file
-    )
+    if config_file is not None:
+        util.msg(
+            "Please edit configuration/connection/logging "
+            "settings in %r before proceeding." % config_file
+        )
 
 
 def revision(
